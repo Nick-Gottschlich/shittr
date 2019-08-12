@@ -1,20 +1,17 @@
 import React from 'react';
-import fbLogo from './assets/fbLogo.png';
-import './App.css';
+import MainScreen from './Containers/MainScreen';
+import FacebookScreen from './Containers/FacebookScreen';
+import { 
+  BrowserRouter as Router, 
+  Route
+} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <button className="facebookButton">
-        <img 
-          className="facebookLogo"
-          src={fbLogo}
-          alt="fucc the zucc" 
-        />
-        
-        Flush Facebook
-      </button>
-    </div>
+    <Router>
+      <Route path="/" exact component={MainScreen} />
+      <Route path="/facebook" component={FacebookScreen} />
+    </Router>
   );
 }
 
