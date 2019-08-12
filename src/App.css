@@ -13,4 +13,19 @@
 
 .facebookButton {
   height: 50px;
+  
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+
+  font-size: 30px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: #1877f2;
+
+}
+
+.facebookLogo {
+  height: 30px;
+  padding-right: 20px;
 }

@@ -1,13 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
+import fbLogo from './assets/fbLogo.png';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <button className="facebookButton">
+        <img 
+          className="facebookLogo"
+          src={fbLogo}
+          alt="fucc the zucc" 
+        />
         
-        Delete Facebook
+        Flush Facebook
       </button>
     </div>
   );
