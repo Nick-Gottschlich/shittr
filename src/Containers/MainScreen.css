@@ -15,12 +15,13 @@
 }
 
 .linkContainer {
-  background-color: grey;
+  background-color: #e6e6e6;
+
   padding: 10px;
   margin-bottom: 10px;
-}
 
-.button {
+  border-radius: 10px;
+
   height: 50px;
   width: 300px;
   
@@ -32,11 +33,25 @@
 
   font-size: 30px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  color: #1877f2;
-
+  text-decoration: none;
 }
 
-.facebookLogo {
+.linkContainer > a {
+  display: flex;
+  align-items: center;
+
+  text-decoration: none;
+}
+
+.facebook > a:visited {
+  color: #1877f2;
+}
+
+.instagram > a:visited {
+  color: #de1174;
+}
+
+.siteLogo {
   height: 30px;
   padding-right: 20px;
 }
