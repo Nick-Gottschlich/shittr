@@ -1,4 +1,7 @@
 .App {
+  display:flex;
+  flex-direction: column;
+
   background-color: #282c34;
   text-align: center;
 
@@ -11,11 +14,19 @@
   min-height: 100vh;
 }
 
-.facebookButton {
+.linkContainer {
+  background-color: grey;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.button {
   height: 50px;
+  width: 300px;
   
   display: flex;
   align-items: center;
+  justify-content: center;
 
   cursor: pointer;
 
