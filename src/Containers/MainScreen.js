@@ -14,6 +14,9 @@ export default class MainScreen extends React.Component {
   render() {
     return (
       <div className="App">
+        <div className="titleText">
+          Hello! It's time to flush your Social Media down the drain! 💩
+        </div>
         <div className="linkContainer facebook">
           <a 
             href="https://www.facebook.com/help/delete_account" 

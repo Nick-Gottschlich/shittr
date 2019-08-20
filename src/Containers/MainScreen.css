@@ -44,16 +44,32 @@
   text-decoration: none;
 }
 
+.facebook > a {
+  color: #1877f2;
+}
+
 .facebook > a:visited {
   color: #1877f2;
+}
+
+.instagram > a {
+  color: #de1174;
 }
 
 .instagram > a:visited {
   color: #de1174;
 }
 
+.twitter > a {
+  color: #1da1f2;
+}
+
 .twitter > a:visited {
   color: #1da1f2;
+}
+
+.reddit > a {
+  color: #ff4500;
 }
 
 .reddit > a:visited {
@@ -62,4 +78,9 @@
 
 .siteLogo {
   height: 30px;
+}
+
+.titleText {
+  color: rgb(198, 198, 198);
+  padding-bottom: 30px;
 }
