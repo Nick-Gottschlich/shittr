@@ -15,7 +15,7 @@ export default class MainScreen extends React.Component {
     return (
       <div className="App">
         <div className="titleText">
-          Hello! It's time to flush your Social Media down the drain! 💩
+          Hello! It's time to flush your Social Media down the drain!
         </div>
         <div className="linkContainer facebook">
           <a 
