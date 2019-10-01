@@ -1,5 +1,4 @@
 # import RPi.GPIO as GPIO
-# import time
 # from pydub import AudioSegment
 # from pydub.playback import play
 from selenium import webdriver
@@ -23,6 +22,11 @@ import time
 browser = webdriver.Chrome(
     '/Users/nicholasgottschlich/Library/SeleniumWebdrivers/chromedriver')
 browser.get('localhost:3000')
+
+def reset():
+    browser.delete_all_cookies()
+    time.sleep(5)
+    browser.get('localhost:3000')
 
 # debugging for dev
 while True:
@@ -51,6 +55,9 @@ while True:
                         '/html/body/div[7]/div[2]/div/div/form/div[3]/button')
                     fb_really_confirm_button.click()
 
+                    time.sleep(2)
+                    reset()
+
         if url == 'https://www.instagram.com/accounts/remove/request/permanent/':
             ig_delete_button = browser.find_element_by_xpath(
                 '/html/body/div/div[1]/div/div[2]/section/form/div[8]/p[4]/input')
@@ -59,6 +66,9 @@ while True:
             fakeButtonPress2 = input()
             if fakeButtonPress2 == 'go':
                 browser.switch_to.alert.accept()
+
+                time.sleep(2)
+                reset()
 
         if url == 'https://twitter.com/settings/deactivate':
             twitter_delete_button = browser.find_element_by_xpath(
@@ -70,6 +80,9 @@ while True:
                 twitter_confirm_delete_button = browser.find_element_by_xpath(
                     '/html/body/div/div/div/div/main/div/div/div/section[2]/div[2]/div[5]/div/div/span/span')
                 twitter_confirm_delete_button.click()
+
+                time.sleep(2)
+                reset()
 
         if url == 'https://www.reddit.com/settings':
             print('reddit delete page')
@@ -89,4 +102,9 @@ while True:
                         '/html/body/div[1]/div/div/div/div[4]/div/div/div/div/div/button[2]')
                     reddit_really_confirm_delete_button.click()
 
-    # if one of the delete buttons is found, after flush press, wait a few seconds, and then clear all browser cookies and reload localhost:3000
+                    time.sleep(2)
+                    reset()
+
+    if fakeButtonPress == 'stop':
+        print('resetting')
+        reset()
