@@ -1,0 +1,86 @@
+.App {
+  display: flex;
+  flex-direction: column;
+
+  background-color: #282c34;
+  text-align: center;
+
+  font-size: calc(10px + 2vmin);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+.linkContainer {
+  background-color: #e6e6e6;
+
+  padding: 10px;
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+
+  height: 50px;
+  width: 300px;
+  
+  display: flex;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-size: 30px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-decoration: none;
+}
+
+.linkContainer > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+
+  text-decoration: none;
+}
+
+.facebook > a {
+  color: #1877f2;
+}
+
+.facebook > a:visited {
+  color: #1877f2;
+}
+
+.instagram > a {
+  color: #de1174;
+}
+
+.instagram > a:visited {
+  color: #de1174;
+}
+
+.twitter > a {
+  color: #1da1f2;
+}
+
+.twitter > a:visited {
+  color: #1da1f2;
+}
+
+.reddit > a {
+  color: #ff4500;
+}
+
+.reddit > a:visited {
+  color: #ff4500;
+}
+
+.siteLogo {
+  height: 30px;
+}
+
+.titleText {
+  color: rgb(198, 198, 198);
+  padding-bottom: 30px;
+}
