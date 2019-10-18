@@ -1341,3 +1341,8 @@ Gdk-Message: 21:14:55.795: /usr/lib/firefox-esr/firefox-esr: Fatal IO error 11 (
 
 Gdk-Message: 21:14:55.801: /usr/lib/firefox-esr/firefox-esr: Fatal IO error 11 (Resource temporarily unavailable) on X server :1001.
 
+1571363593552	geckodriver	INFO	geckodriver 0.19.1
+1571363593569	geckodriver	INFO	Listening on 127.0.0.1:45695
+1571363594271	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.DdgCUi7ozyrb"
+1571363600353	Marionette	INFO	Listening on port 41017
+1571363600436	Marionette	WARN	TLS certificate errors will be ignored for this session
