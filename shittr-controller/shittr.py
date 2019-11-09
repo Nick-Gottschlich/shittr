@@ -1,5 +1,6 @@
-import webview
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import ActionChains
 import time
 import RPi.GPIO as GPIO
 from pydub import AudioSegment
@@ -133,16 +134,44 @@ def flush_reddit():
         flush_reddit()
 
 
-def run_this_shit(window):
+def run_this_shit():
     browser.get('http://localhost:3000')
     browser.maximize_window()
     browser.fullscreen_window()
 
+    zoomed_bool = False
+
     while True:
         input_state = GPIO.input(18)
+        url = browser.current_url
+
+        print(url)
+
+        if (url == 'https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fhelp%2Fdelete_account' and not zoomed_bool):
+            time.sleep(3)
+            print('1')
+            # this doesn't seem to be working, pick up from here
+            # browser.find_element_by_tag_name('html').send_keys(Keys.CONTROL, Keys.SUBTRACT)
+            # print(browser.find_element_by_tag_name("body"))
+            # browser.find_element_by_tag_name("html").send_keys(Keys.LEFT_CONTROL, Keys.SUBTRACT)
+            # browser.execute_script("document.body.style.transform = 'scale(0.8)'")
+            # browser.execute_script("document.body.style.zoom='zoom 80%'")
+            # maybe key down next?
+            # actions = ActionChains(browser)
+            # browser.find_element_by_tag_name("html").send_keys(Keys.LEFT_CONTROL, Keys.SUBTRACT)
+            # ActionChains(browser).send_keys(Keys.CONTROL).send_keys(Keys.SUBTRACT).perform()
+            # ActionChains(browser).send_keys(Keys.CONTROL).send_keys(Keys.SUBTRACT).perform()
+            # ActionChains(browser).key_down(Keys.CONTROL).send_keys(Keys.SUBTRACT).perform()
+            # actions.send_keys(Keys.SUBTRACT).perform()
+            # actions.send_keys(Keys.CONTROL, Keys.SUBTRACT).perform()
+            # actions.send_keys(Keys.SUBTRACT)
+            # actions.perform()
+            
+            # browser.find_element_by_tag_name('html').key_down(Keys.CONTROL).send_keys(Keys.SUBTRACT)
+            print('2')
+            zoomed_bool = True
 
         if input_state == False:
-            print(browser.current_url)
             url = browser.current_url
 
             if url == 'https://www.facebook.com/help/delete_account':
@@ -182,9 +211,8 @@ def run_this_shit(window):
 
                 flush_reddit()
 
-    time.sleep(0.3)
+        time.sleep(0.3)
 
 
 if __name__ == '__main__':
-    window = webview.create_window('shittr', fullscreen=True)
-    webview.start(run_this_shit, window)
+    run_this_shit()
