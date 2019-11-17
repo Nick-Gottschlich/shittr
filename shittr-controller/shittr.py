@@ -5,6 +5,7 @@ import time
 import RPi.GPIO as GPIO
 from pydub import AudioSegment
 from pydub.playback import play
+import keyboard
 
 flush_noise = AudioSegment.from_wav("toilet.wav")
 
@@ -139,42 +140,26 @@ def run_this_shit():
     browser.maximize_window()
     browser.fullscreen_window()
 
-    zoomed_bool = False
+    def zoom_out(scale):
+        browser.execute_script(f'document.body.style.MozTransform = "scale({scale})";')
+        browser.execute_script('document.body.style.MozTransformOrigin = "0 0";')
+
+    def scroll_to_bottom():
+        browser.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
     while True:
-        input_state = GPIO.input(18)
         url = browser.current_url
 
-        print(url)
+        try:
+            if keyboard.is_pressed('escape'):
+                print('escape pressed!!')
 
-        if (url == 'https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fhelp%2Fdelete_account' and not zoomed_bool):
-            time.sleep(3)
-            print('1')
-            # this doesn't seem to be working, pick up from here
-            # browser.find_element_by_tag_name('html').send_keys(Keys.CONTROL, Keys.SUBTRACT)
-            # print(browser.find_element_by_tag_name("body"))
-            # browser.find_element_by_tag_name("html").send_keys(Keys.LEFT_CONTROL, Keys.SUBTRACT)
-            # browser.execute_script("document.body.style.transform = 'scale(0.8)'")
-            # browser.execute_script("document.body.style.zoom='zoom 80%'")
-            # maybe key down next?
-            # actions = ActionChains(browser)
-            # browser.find_element_by_tag_name("html").send_keys(Keys.LEFT_CONTROL, Keys.SUBTRACT)
-            # ActionChains(browser).send_keys(Keys.CONTROL).send_keys(Keys.SUBTRACT).perform()
-            # ActionChains(browser).send_keys(Keys.CONTROL).send_keys(Keys.SUBTRACT).perform()
-            # ActionChains(browser).key_down(Keys.CONTROL).send_keys(Keys.SUBTRACT).perform()
-            # actions.send_keys(Keys.SUBTRACT).perform()
-            # actions.send_keys(Keys.CONTROL, Keys.SUBTRACT).perform()
-            # actions.send_keys(Keys.SUBTRACT)
-            # actions.perform()
-            
-            # browser.find_element_by_tag_name('html').key_down(Keys.CONTROL).send_keys(Keys.SUBTRACT)
-            print('2')
-            zoomed_bool = True
+            if url == 'https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fhelp%2Fdelete_account':
+                zoom_out(0.8)
 
-        if input_state == False:
-            url = browser.current_url
+            elif url == 'https://www.facebook.com/help/delete_account':
+                zoom_out(0.8)
 
-            if url == 'https://www.facebook.com/help/delete_account':
                 # initial delete button
                 fb_delete_button = browser.find_element_by_xpath(
                     '/html/body/div[1]/div[3]/div[1]/div/div/div[3]/div/div[1]/a[2]')
@@ -184,7 +169,9 @@ def run_this_shit():
 
                 flush_facebook()
 
-            if url == 'https://www.instagram.com/accounts/remove/request/permanent/':
+            elif url == 'https://www.instagram.com/accounts/remove/request/permanent/':
+                zoom_out(0.8)
+
                 ig_delete_button = browser.find_element_by_xpath(
                     '/html/body/div/div[1]/div/div[2]/section/form/div[8]/p[4]/input')
                 ig_delete_button.click()
@@ -193,7 +180,9 @@ def run_this_shit():
 
                 flush_instagram()
 
-            if url == 'https://twitter.com/settings/deactivate':
+            elif url == 'https://twitter.com/settings/deactivate':
+                zoom_out(0.65)
+
                 twitter_delete_button = browser.find_element_by_xpath(
                     '/html/body/div/div/div/div/main/div/div/div/section[2]/div[2]/div/div[11]/div/div/span')
                 twitter_delete_button.click()
@@ -202,7 +191,10 @@ def run_this_shit():
 
                 flush_twitter()
 
-            if url == 'https://www.reddit.com/settings':
+            elif url == 'https://www.reddit.com/settings':
+                print('in reddit!')
+                scroll_to_bottom()
+
                 reddit_delete_button = browser.find_element_by_xpath(
                     '/html/body/div[1]/div/div/div/div[2]/div/div/div[2]/div[1]/div[7]/button')
                 reddit_delete_button.click()
@@ -210,6 +202,9 @@ def run_this_shit():
                 time.sleep(2)
 
                 flush_reddit()
+        except Exception as error:
+            print('ERROR:', error)
+            pass
 
         time.sleep(0.3)
 
