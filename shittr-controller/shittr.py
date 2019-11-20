@@ -5,20 +5,20 @@ import time
 import RPi.GPIO as GPIO
 from pydub import AudioSegment
 from pydub.playback import play
-import keyboard
 
 flush_noise = AudioSegment.from_wav("toilet.wav")
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 browser = webdriver.Firefox()
 
 
 def reset():
     browser.delete_all_cookies()
+    browser.get('http://localhost:3000')
     time.sleep(5)
-    browser.get('localhost:3000')
 
 
 def run_flush():
@@ -28,6 +28,10 @@ def run_flush():
 
 def flush_facebook_2():
     input_state = GPIO.input(18)
+    reset_input_state = GPIO.input(25)
+
+    if not reset_input_state:
+        reset()
 
     if input_state == False:
         # really confirm button once the user presses confirm eat a dick zucc
@@ -47,6 +51,10 @@ def flush_facebook_2():
 
 def flush_facebook():
     input_state = GPIO.input(18)
+    reset_input_state = GPIO.input(25)
+
+    if not reset_input_state:
+        reset()
 
     if input_state == False:
         # confirmation button once the user enters password
@@ -66,6 +74,10 @@ def flush_facebook():
 
 def flush_instagram():
     input_state = GPIO.input(18)
+    reset_input_state = GPIO.input(25)
+
+    if not reset_input_state:
+        reset()
 
     if input_state == False:
         browser.switch_to.alert.accept()
@@ -82,6 +94,10 @@ def flush_instagram():
 
 def flush_twitter():
     input_state = GPIO.input(18)
+    reset_input_state = GPIO.input(25)
+
+    if not reset_input_state:
+        reset()
 
     if input_state == False:
         twitter_confirm_delete_button = browser.find_element_by_xpath(
@@ -101,6 +117,10 @@ def flush_twitter():
 
 def flush_reddit_2():
     input_state = GPIO.input(18)
+    reset_input_state = GPIO.input(25)
+
+    if not reset_input_state:
+        reset()
 
     if input_state == False:
         reddit_really_confirm_delete_button = browser.find_element_by_xpath(
@@ -119,6 +139,10 @@ def flush_reddit_2():
 
 def flush_reddit():
     input_state = GPIO.input(18)
+    reset_input_state = GPIO.input(25)
+
+    if not reset_input_state:
+        reset()
 
     if input_state == False:
         reddit_confirm_delete_button = browser.find_element_by_xpath(
@@ -150,9 +174,12 @@ def run_this_shit():
     while True:
         url = browser.current_url
 
+        # false means button has been pressed
+        reset_input_state = GPIO.input(25)
+
         try:
-            if keyboard.is_pressed('escape'):
-                print('escape pressed!!')
+            if not reset_input_state:
+                reset()
 
             if url == 'https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fhelp%2Fdelete_account':
                 zoom_out(0.8)
@@ -206,7 +233,7 @@ def run_this_shit():
             print('ERROR:', error)
             pass
 
-        time.sleep(0.3)
+        time.sleep(0.05)
 
 
 if __name__ == '__main__':
