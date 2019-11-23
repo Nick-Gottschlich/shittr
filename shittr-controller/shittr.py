@@ -45,7 +45,7 @@ def flush_facebook_2():
         reset()
         return
     else:
-        time.sleep(0.3)
+        time.sleep(0.05)
         flush_facebook_2()
 
 
@@ -68,7 +68,7 @@ def flush_facebook():
         flush_facebook_2()
         return
     else:
-        time.sleep(0.3)
+        time.sleep(0.05)
         flush_facebook()
 
 
@@ -88,7 +88,7 @@ def flush_instagram():
         reset()
         return
     else:
-        time.sleep(0.3)
+        time.sleep(0.05)
         flush_instagram()
 
 
@@ -101,7 +101,7 @@ def flush_twitter():
 
     if input_state == False:
         twitter_confirm_delete_button = browser.find_element_by_xpath(
-            '/html/body/div/div/div/div/main/div/div/div/section[2]/div[2]/div[5]/div/div/span/span'
+            '/html/body/div/div/div/div[2]/main/div/div/div/div/div[5]/div'
         )
         twitter_confirm_delete_button.click()
 
@@ -111,7 +111,7 @@ def flush_twitter():
         reset()
         return
     else:
-        time.sleep(0.3)
+        time.sleep(0.05)
         flush_twitter()
 
 
@@ -133,7 +133,7 @@ def flush_reddit_2():
         reset()
         return
     else:
-        time.sleep(0.3)
+        time.sleep(0.05)
         flush_reddit_2()
 
 
@@ -155,7 +155,7 @@ def flush_reddit():
         flush_reddit_2()
         return
     else:
-        time.sleep(0.3)
+        time.sleep(0.05)
         flush_reddit()
 
 
@@ -174,6 +174,7 @@ def run_this_shit():
     while True:
         url = browser.current_url
 
+        input_state = GPIO.input(18)
         # false means button has been pressed
         reset_input_state = GPIO.input(25)
 
@@ -187,48 +188,52 @@ def run_this_shit():
             elif url == 'https://www.facebook.com/help/delete_account':
                 zoom_out(0.8)
 
-                # initial delete button
-                fb_delete_button = browser.find_element_by_xpath(
-                    '/html/body/div[1]/div[3]/div[1]/div/div/div[3]/div/div[1]/a[2]')
-                fb_delete_button.click()
-                # run_flush()
-                time.sleep(2)
+                if not input_state:
+                    # initial delete button
+                    fb_delete_button = browser.find_element_by_xpath(
+                        '/html/body/div[1]/div[3]/div[1]/div/div/div[3]/div/div[1]/a[2]')
+                    fb_delete_button.click()
+                    # run_flush()
+                    time.sleep(2)
 
-                flush_facebook()
+                    flush_facebook()
 
             elif url == 'https://www.instagram.com/accounts/remove/request/permanent/':
                 zoom_out(0.8)
+                scroll_to_bottom()
 
-                ig_delete_button = browser.find_element_by_xpath(
-                    '/html/body/div/div[1]/div/div[2]/section/form/div[8]/p[4]/input')
-                ig_delete_button.click()
-                # run_flush()
-                time.sleep(2)
+                if not input_state:
+                    ig_delete_button = browser.find_element_by_xpath(
+                        '/html/body/div/div[1]/div/div[2]/section/form/div[8]/p[4]/input')
+                    ig_delete_button.click()
+                    # run_flush()
+                    time.sleep(2)
 
-                flush_instagram()
+                    flush_instagram()
 
             elif url == 'https://twitter.com/settings/deactivate':
                 zoom_out(0.65)
 
-                twitter_delete_button = browser.find_element_by_xpath(
-                    '/html/body/div/div/div/div/main/div/div/div/section[2]/div[2]/div/div[11]/div/div/span')
-                twitter_delete_button.click()
-                # run_flush()
-                time.sleep(2)
+                if not input_state:
+                    twitter_delete_button = browser.find_element_by_xpath(
+                        '/html/body/div/div/div/div[2]/main/div/div/div/div/div/div[11]/div/div/span')
+                    twitter_delete_button.click()
+                    # run_flush()
+                    time.sleep(2)
 
-                flush_twitter()
+                    flush_twitter()
 
             elif url == 'https://www.reddit.com/settings':
-                print('in reddit!')
                 scroll_to_bottom()
 
-                reddit_delete_button = browser.find_element_by_xpath(
-                    '/html/body/div[1]/div/div/div/div[2]/div/div/div[2]/div[1]/div[7]/button')
-                reddit_delete_button.click()
-                # run_flush()
-                time.sleep(2)
+                if not input_state:
+                    reddit_delete_button = browser.find_element_by_xpath(
+                        '/html/body/div[1]/div/div/div/div[2]/div/div/div[2]/div[1]/div[7]/button')
+                    reddit_delete_button.click()
+                    # run_flush()
+                    time.sleep(2)
 
-                flush_reddit()
+                    flush_reddit()
         except Exception as error:
             print('ERROR:', error)
             pass
