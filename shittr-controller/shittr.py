@@ -160,9 +160,16 @@ def flush_reddit():
 
 
 def run_this_shit():
+    print('anything??')
     browser.get('http://localhost:3000')
+    print('2')
     browser.maximize_window()
-    browser.fullscreen_window()
+    print('3')
+    # browser.fullscreen_window() 
+    # ActionChains(browser).send_keys(Keys.F11).perform()
+    html = browser.find_element_by_tag_name("html")
+    html.send_keys(Keys.F11)
+    print('4')
 
     def zoom_out(scale):
         browser.execute_script(f'document.body.style.MozTransform = "scale({scale})";')
@@ -171,16 +178,20 @@ def run_this_shit():
     def scroll_to_bottom():
         browser.execute_script("window.scrollTo(0, document.body.scrollHeight)")
 
+    print ('bruh what')
+
     while True:
         url = browser.current_url
 
         input_state = GPIO.input(18)
+        print(input_state)
         # false means button has been pressed
         reset_input_state = GPIO.input(25)
 
         try:
-            if not reset_input_state:
-                reset()
+            print (reset_input_state)
+            # if not reset_input_state:
+                # reset()
 
             if url == 'https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fhelp%2Fdelete_account':
                 zoom_out(0.8)
